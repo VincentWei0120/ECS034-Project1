@@ -44,7 +44,11 @@ TEST(StringUtilsTest, LStrip){
 }
 
 TEST(StringUtilsTest, RStrip){
-    
+    std::string base = "HELLO  ";
+    EXPECT_EQ(StringUtils::RStrip(base), "HELLO");
+    EXPECT_EQ(StringUtils::RStrip("  HELLO  "), "  HELLO");
+    EXPECT_EQ(StringUtils::RStrip("  HELLO"), "  HELLO");
+    EXPECT_EQ(StringUtils::LStrip("   "), "");
 }
 
 TEST(StringUtilsTest, Strip){

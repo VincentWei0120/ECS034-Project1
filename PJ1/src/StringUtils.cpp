@@ -62,8 +62,23 @@ std::string LStrip(const std::string &str) noexcept{
 }
 
 std::string RStrip(const std::string &str) noexcept{
-    // Replace code here
-    return "";
+    size_t num = 0;
+    for(size_t Index = str.length()-1; Index>=0; Index--){
+        if(str[Index] != ' '){
+            num = Index;
+            break;
+        }
+        else{
+            num = Index;
+        }
+    }
+    if (num == str.length()){
+        return "";
+    }
+    else {
+        return str.substr(0, num+1);
+    }
+    
 }
 
 std::string Strip(const std::string &str) noexcept{
