@@ -5,6 +5,9 @@ TEST(StringUtilsTest, SliceTest){
     std::string base = "Hello";
     EXPECT_EQ(StringUtils::Slice(base, 0), "Hello");
     EXPECT_EQ(StringUtils::Slice(base, 1), "ello");
+    EXPECT_EQ(StringUtils::Slice(base, 0, 2), "He");
+    EXPECT_EQ(StringUtils::Slice(base, 0, -3), "He");
+    EXPECT_EQ(StringUtils::Slice(base, 1, -2), "el");
 }
 
 TEST(StringUtilsTest, Capitalize){
@@ -37,7 +40,7 @@ TEST(StringUtilsTest, LStrip){
     EXPECT_EQ(StringUtils::LStrip(base), "HELLO");
     EXPECT_EQ(StringUtils::LStrip("  HELLO  "), "HELLO  ");
     EXPECT_EQ(StringUtils::LStrip("HELLO  "), "HELLO  ");
-    // EXPECT_EQ(StringUtils::LStrip("   "), "");
+    EXPECT_EQ(StringUtils::LStrip("   "), "");
 }
 
 TEST(StringUtilsTest, RStrip){

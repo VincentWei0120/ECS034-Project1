@@ -1,10 +1,19 @@
 #include "../include/StringUtils.h"
 #include <cctype>
+#include <iostream>
 namespace StringUtils{
 
 std::string Slice(const std::string &str, ssize_t start, ssize_t end) noexcept{
+    if (end==0){
+        return str.substr(start, str.length()-start);
+    }
+    else if (end>0){
+        return str.substr(start, end-start);
+    }
+    else{
+        return str.substr(start, str.length()+end-start);
+    }
     
-    return str.substr(start, str.length()-start);
 }
 
 std::string Capitalize(const std::string &str) noexcept{
@@ -39,8 +48,17 @@ std::string LStrip(const std::string &str) noexcept{
             num = Index;
             break;
         }
+        else{
+            num = Index+1;
+        }
     }
-    return str.substr(num, str.length()-num);
+
+    if (num == str.length()){
+        return "";
+    }
+    else {
+        return str.substr(num, str.length()-num);
+    }
 }
 
 std::string RStrip(const std::string &str) noexcept{
