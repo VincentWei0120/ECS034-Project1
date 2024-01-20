@@ -52,19 +52,33 @@ TEST(StringUtilsTest, RStrip){
 }
 
 TEST(StringUtilsTest, Strip){
-    
+    std::string base = "  HELLO  ";
+    EXPECT_EQ(StringUtils::Strip(base), "HELLO");
+    EXPECT_EQ(StringUtils::Strip("  HELLO"), "HELLO");
+    EXPECT_EQ(StringUtils::Strip("HELLO  "), "HELLO");
+    EXPECT_EQ(StringUtils::Strip("   "), "");
 }
 
 TEST(StringUtilsTest, Center){
-    
+    std::string base = "HELLO";
+    EXPECT_EQ(StringUtils::Center(base,15), "     HELLO     ");
+    EXPECT_EQ(StringUtils::Center(base,15,'-'), "-----HELLO-----");
+    EXPECT_EQ(StringUtils::Center(base,13), "    HELLO    ");
+    EXPECT_EQ(StringUtils::Center(base,13,'-'), "----HELLO----");
+    EXPECT_EQ(StringUtils::Center(base,14), "     HELLO    ");
+    EXPECT_EQ(StringUtils::Center(base,14,'-'), "-----HELLO----");
 }
 
 TEST(StringUtilsTest, LJust){
-    
+    std::string base = "HELLO";
+    EXPECT_EQ(StringUtils::LJust(base,10), "HELLO     ");
+    EXPECT_EQ(StringUtils::LJust(base,10,'-'), "HELLO-----");
 }
 
 TEST(StringUtilsTest, RJust){
-    
+    std::string base = "HELLO";
+    EXPECT_EQ(StringUtils::RJust(base,10), "     HELLO");
+    EXPECT_EQ(StringUtils::RJust(base,10,'-'), "-----HELLO");
 }
 
 TEST(StringUtilsTest, Replace){

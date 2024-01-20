@@ -1,6 +1,7 @@
 #include "../include/StringUtils.h"
 #include <cctype>
 #include <iostream>
+#include <cmath>
 namespace StringUtils{
 
 std::string Slice(const std::string &str, ssize_t start, ssize_t end) noexcept{
@@ -78,27 +79,43 @@ std::string RStrip(const std::string &str) noexcept{
     else {
         return str.substr(0, num+1);
     }
-    
 }
 
 std::string Strip(const std::string &str) noexcept{
-    // Replace code here
-    return "";
+    std::string myString = StringUtils::LStrip(str);
+    myString = StringUtils::RStrip(myString);
+    return myString;
 }
 
 std::string Center(const std::string &str, int width, char fill) noexcept{
-    // Replace code here
-    return "";
+    int len = str.length();
+    int remain = width - len;
+    std::string myStr;
+    if (remain%2 == 0){
+        myStr = StringUtils::LJust(str,remain/2+len,fill);
+        myStr = StringUtils::RJust(myStr,width,fill);
+    }
+    else{
+        myStr = StringUtils::LJust(str,ceil(remain/2)+len,fill);
+        myStr = StringUtils::RJust(myStr,width,fill);
+    }
+    return myStr;
 }
 
 std::string LJust(const std::string &str, int width, char fill) noexcept{
-    // Replace code here
-    return "";
+    int len = str.length();
+    int remain = width - len;
+    std::string fillString(remain,fill);
+    std::string result = str + fillString;
+    return result;
 }
 
 std::string RJust(const std::string &str, int width, char fill) noexcept{
-    // Replace code here
-    return "";
+    int len = str.length();
+    int remain = width - len;
+    std::string fillString(remain,fill);
+    std::string result = fillString + str;
+    return result;
 }
 
 std::string Replace(const std::string &str, const std::string &old, const std::string &rep) noexcept{
