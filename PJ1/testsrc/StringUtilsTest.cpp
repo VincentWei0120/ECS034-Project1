@@ -107,7 +107,9 @@ TEST(StringUtilsTest, Join){
 }
 
 TEST(StringUtilsTest, ExpandTabs){
-    
+    std::string base = "HELLO\tHI";
+    EXPECT_EQ(StringUtils::ExpandTabs(base), "HELLO   HI");
+    EXPECT_EQ(StringUtils::ExpandTabs(base,10), "HELLO     HI");
 }
 
 TEST(StringUtilsTest, EditDistance){
