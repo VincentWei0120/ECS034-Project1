@@ -99,7 +99,11 @@ TEST(StringUtilsTest, Split){
 }
 
 TEST(StringUtilsTest, Join){
-    
+    std::vector<std::string> vects = {"Hello", "Hi"};
+    std::string base1 = StringUtils::Join(" ", vects);
+    EXPECT_EQ(base1, "Hello Hi");
+    std::string base2 = StringUtils::Join(",", vects);
+    EXPECT_EQ(base2, "Hello,Hi");
 }
 
 TEST(StringUtilsTest, ExpandTabs){
