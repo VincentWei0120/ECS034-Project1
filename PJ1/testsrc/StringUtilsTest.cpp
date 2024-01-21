@@ -82,11 +82,20 @@ TEST(StringUtilsTest, RJust){
 }
 
 TEST(StringUtilsTest, Replace){
-    
+    std::string base = "HELLO HI";
+    EXPECT_EQ(StringUtils::Replace(base,"HI","HELLO"), "HELLO HELLO");
+    EXPECT_EQ(StringUtils::Replace(base,"HELLO","HI"), "HI HI");
 }
 
 TEST(StringUtilsTest, Split){
-    
+    std::string base1 = "HELLO HI";
+    std::string base2 = "HELLO,HI";
+    EXPECT_EQ(StringUtils::Split(base1).size(), 2);
+    EXPECT_EQ(StringUtils::Split(base1)[0], "HELLO");
+    EXPECT_EQ(StringUtils::Split(base1)[1], "HI");
+    EXPECT_EQ(StringUtils::Split(base2,",").size(), 2);
+    EXPECT_EQ(StringUtils::Split(base2,",")[0], "HELLO");
+    EXPECT_EQ(StringUtils::Split(base2,",")[1], "HI");
 }
 
 TEST(StringUtilsTest, Join){

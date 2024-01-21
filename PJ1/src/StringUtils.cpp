@@ -119,15 +119,44 @@ std::string RJust(const std::string &str, int width, char fill) noexcept{
 }
 
 std::string Replace(const std::string &str, const std::string &old, const std::string &rep) noexcept{
-    // Replace code here
-    return "";
+    std::string myString = str;
+    int Index = 0;
+    while ((Index = myString.find(old, Index)) != std::string::npos){
+        myString.replace(Index, old.length(), rep);
+        Index += rep.length();
+    }
+    return myString;
 }
 
 std::vector< std::string > Split(const std::string &str, const std::string &splt) noexcept{
-    // Replace code here
-    return {};
+    std::vector<std::string> strings;
+    
+    if (splt.empty()){
+        int start = 0;
+        int end = str.find_first_of(" ");
+        while (end != std::string::npos){
+        strings.push_back(Slice(str,start,end));
+        start = end+1;
+        end = str.find_first_of(splt, start);
+        }
+        if(start < str.length()){
+        strings.push_back(str.substr(start));
+        }
+    }
+    else{
+        int start = 0;
+        int end = str.find_first_of(splt);
+        while (end != std::string::npos){
+            strings.push_back(Slice(str,start,end));
+            start = end+1;
+            end = str.find_first_of(splt, start);
+        }
+        if(start < str.length()){
+            strings.push_back(str.substr(start));
+        }
+    }   
+    return strings;
 }
-
 std::string Join(const std::string &str, const std::vector< std::string > &vect) noexcept{
     // Replace code here
     return "";
