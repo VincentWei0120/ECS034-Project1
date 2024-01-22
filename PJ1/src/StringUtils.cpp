@@ -1,7 +1,8 @@
 #include "../include/StringUtils.h"
 #include <cctype>
 #include <iostream>
-#include <cmath>
+#include <math.h>
+#include <algorithm>
 namespace StringUtils{
 
 std::string Slice(const std::string &str, ssize_t start, ssize_t end) noexcept{
@@ -176,7 +177,7 @@ std::string ExpandTabs(const std::string &str, int tabsize) noexcept{
     for (int i = 0; i < str.length(); i++){
         if (str[i] == '\t'){
             int space = tabsize - (myString.length()%tabsize);
-            for (int x = 0; x<space; x++){
+            for (int j = 0; j<space; j++){
                 myString.push_back(' ');
             }
         }
@@ -188,8 +189,42 @@ std::string ExpandTabs(const std::string &str, int tabsize) noexcept{
 }
 
 int EditDistance(const std::string &left, const std::string &right, bool ignorecase) noexcept{
-    // Replace code here
-    return 0;
+    // The +1 here is for the empty string 
+    int rows = left.length()+1;
+    int columns = right.length()+1;
+    int matrix[rows][columns];
+    //Initalize the first row and column with increasing values
+    for (int i =0;i<rows;i++){
+        matrix[i][0] = i;
+    }
+    for (int j =0;j<columns;j++){
+        matrix[0][j] = j;
+    }
+    //Fill in rest
+    for (int i = 1; i <= rows; i++){
+        for (int j =1; j <= columns; j++){
+            if (ignorecase){
+                if (tolower(left[i-1]) == tolower(right[j-1])){
+                    //no cost
+                    matrix[i][j] = matrix[i-1][j-1];
+                }
+                else{
+                    //choose minimum cost of insertion, deletion, substitution according to the wikipedia definition
+                    matrix[i][j] = std::min(std::min(matrix[i-1][j], matrix[i][j-1]), matrix[i-1][j-1])+1;
+                }
+            }
+            else{
+                if (left[i-1] == right[j-1]){
+                    matrix[i][j] = matrix[i-1][j-1];
+                }
+                else{
+                    matrix[i][j] = std::min(std::min(matrix[i-1][j], matrix[i][j-1]), matrix[i-1][j-1])+1;
+                }
+            }
+        }
+    }
+    //return the element in the last row and last column which has the final edit distance
+    return matrix[rows-1][columns-1];
 }
 
 };
